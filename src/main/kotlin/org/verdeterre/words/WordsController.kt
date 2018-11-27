@@ -8,10 +8,16 @@ import org.springframework.web.bind.annotation.ResponseBody
 
 @Controller
 @RequestMapping("/words")
-class WordsController(val anagramService: AnagramService) {
+class WordsController(val wordsService: WordsService, val anagramService: AnagramService) {
     @GetMapping("/test")
     @ResponseBody
     fun test() = "Up and running!"
+
+    @GetMapping("/all")
+    @ResponseBody
+    fun all() = object {
+        val words = wordsService.words
+    }
 
     @GetMapping("/anagrams/{word}")
     @ResponseBody
